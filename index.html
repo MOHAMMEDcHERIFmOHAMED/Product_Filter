@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="heading">
+        <div class="search">
+            <input placeholder="search product here"  type="text" name="" id="search_field">
+            <button class="search_btn" >Search</button>
+        </div>
+        <div class="categories">
+            <span class="category_span All"   >All</span>
+            <span class="category_span Jacket"  >Jacket</span>
+            <span class="category_span Shirt_dress"  >Shirt dress</span>
+            <span class="category_span Shirt"  >Shirt</span>
+            <span class="category_span Glasses"  >Glasses</span>
+        </div>
+
+    </header>
+
+    <div class="cards">
+        
+    </div>
+
+
+</body>
+<script>
+
+let products = [
+{
+    name:"white shirt",
+    category:"Shirt",
+    price:"180",
+    image:"imgs/shirt03.jpg"
+},
+{
+    name:"black shirt",
+    category:"Shirt",
+    price:"180",
+    image:"imgs/shirt02.jpg"
+},
+{
+    name:"black shirt",
+    category:"Shirt",
+    price:"180",
+    image:"imgs/shirt01.jpg"
+},
+
+{
+    name:"white dress shirt",
+    category:"Shirt_dress",
+    price:"180",
+    image:"imgs/dress_shirt01.jpg"
+},
+{
+    name:"blue dress shirt",
+    category:"Shirt_dress",
+    price:"180",
+    image:"imgs/dress_shirt02.jpg"
+},
+{
+    name:"light blue dress shirt",
+    category:"Shirt_dress",
+    price:"180",
+    image:"imgs/dress_shirt03.jpg"
+},
+{
+    name:"brown jacket",
+    category:"jacket",
+    price:"180",
+    image:"imgs/jacket03.jpg"
+},
+{
+    name:"blue jeens jacket",
+    category:"jacket",
+    price:"180",
+    image:"imgs/jacket01.jpg"
+},
+{
+    name:"white shirt",
+    category:"jacket",
+    price:"180",
+    image:"imgs/jacket02.jpg"
+},
+{
+    name:"black glasses",
+    category:"Glasses",
+    price:"180",
+    image:"imgs/glass01.jpg"
+},
+{
+    name:"black glasses",
+    category:"Glasses",
+    price:"180",
+    image:"imgs/glass01.jpg"
+},
+{
+    name:"black glasses",
+    category:"Glasses",
+    price:"180",
+    image:"imgs/glass02.jpg"
+},
+]
+// 
+
+let card_container = document.querySelector(".cards");
+let search_btn = document.querySelector(".search_btn");
+let search_field = document.querySelector("#search_field");
+
+function allProducts(){
+    card_container.innerHTML = "";
+
+    for(let product of products){
+    let card = document.createElement('div');
+    card.classList.add("card");
+    let img = document.createElement('img');
+    img.src = `${product.image}`;
+
+    let title = document.createElement('h2');
+    title.classList.add("pname");
+    title.textContent = `${product.name}`;
+
+    let span = document.createElement('span');
+    span.classList.add("price");
+    span.textContent = `${product.price}`;
+
+    card.append(img,title,span);
+    card_container.append(card) ;
+
+}
+}
+allProducts();
+
+function showAccordingTo(category){
+    card_container.innerHTML = "";
+    for(let product of products){
+        if(category === product.category){
+            let card = document.createElement('div');
+            card.classList.add("card");
+            let img = document.createElement('img');
+            img.src = `${product.image}`;
+
+            let title = document.createElement('h2');
+            title.classList.add("pname");
+            title.textContent = `${product.name}`;
+
+            let span = document.createElement('span');
+            span.classList.add("price");
+            span.textContent = `${product.price}`;
+
+            card.append(img,title,span);
+            card_container.append(card) ;}
+
+        }
+}
+
+document.addEventListener("click",(e)=>{
+    if(e.target.classList.contains("All"))
+    allProducts();  
+    if(e.target.classList.contains("Jacket"))
+        showAccordingTo("jacket");
+    if(e.target.classList.contains("Shirt_dress"))
+        showAccordingTo("Shirt_dress");
+    if(e.target.classList.contains("Shirt"))
+        showAccordingTo("Shirt");
+    if(e.target.classList.contains("Glasses"))
+        showAccordingTo("Glasses");
+
+})
+
+search_btn.addEventListener('click',()=>{
+   console.log( search_field.value ) ;
+   card_container.innerHTML = "";
+   let searchValue = search_field.value.toLowerCase(); 
+   let found= true ; 
+
+   for(let product of products){
+        if(product.name.toLowerCase().includes(searchValue)){
+            let card = document.createElement('div');
+            card.classList.add("card");
+            let img = document.createElement('img');
+            img.src = product.image;
+
+            let title = document.createElement('h2');
+            title.classList.add("pname");
+            title.textContent = product.name;
+
+            let span = document.createElement('span');
+            span.classList.add("price");
+            span.textContent = product.price;
+
+            card.append(img,title,span);
+            card_container.append(card) ;
+
+        }
+}if(!found){
+            allProducts();
+    }
+})
+</script>
+</html>
